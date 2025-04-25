@@ -1,28 +1,28 @@
-// bring in the tools we need
+// bringing in the tools we need to build the seeder
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const User = require('./models/user') // adjust path if needed
 
-// load the .env file so we can use MONGO_URI
+// loading env variables so we can use the uri safely
 dotenv.config()
 
-// connect to the database
+// connecting to the mongodb database
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log('mongodb connected for seeding')
     return seedUsers()
   })
   .catch((err) => {
-    console.error('connection error:', err)
+    console.error('connection error:', err.message)
   })
 
-// this function will clear out old users and add new sample users
+// this function resets user data with sample tech users
 async function seedUsers() {
   try {
-    // remove all existing users (optional but helpful for clean reset)
+    // clear out existing users (optional but useful for testing)
     await User.deleteMany()
 
-    // sample users that feel realistic and human
+    // sample users with realistic info for the tech bucket list app
     const users = [
       {
         username: "emily_dev",
@@ -81,7 +81,7 @@ async function seedUsers() {
       }
     ]
 
-    // insert the users into the database
+    // insert new users into the db
     await User.insertMany(users)
     console.log('users seeded successfully')
     process.exit()
