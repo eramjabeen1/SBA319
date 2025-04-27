@@ -1,7 +1,7 @@
 // bringing goal model
 const Goal = require('../models/goal')
 
-// create a new goal
+// creating a new goal
 const createGoal = async (req, res) => {
   try {
     const goal = await Goal.create(req.body)
@@ -14,6 +14,7 @@ const createGoal = async (req, res) => {
 // get all goals
 const getGoals = async (req, res) => {
   try {
+        // find all goals in the database
     const goals = await Goal.find()
     res.json(goals)
   } catch (err) {
@@ -24,6 +25,7 @@ const getGoals = async (req, res) => {
 // get one goal by ID
 const getGoalById = async (req, res) => {
   try {
+        // find a single goal by id
     const goal = await Goal.findById(req.params.id)
     if (!goal) return res.status(404).json({ error: 'Goal not found' })
     res.json(goal)
@@ -57,6 +59,7 @@ const deleteGoal = async (req, res) => {
   }
 }
 
+// export all the controller functions
 module.exports = {
   createGoal,
   getGoals,

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 
+// this defines what each checkin document should look like
 const checkinSchema = new mongoose.Schema({
   goalId: {
     type: mongoose.Schema.Types.ObjectId,
