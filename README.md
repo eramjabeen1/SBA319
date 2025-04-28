@@ -64,3 +64,19 @@ Seed scripts are included for testing:
 - Relationships between collections (users-goals-checkins) are not fully validated yet (for simplicity)
 
 ## Screenshots
+![image](https://github.com/user-attachments/assets/bfdeddd4-ed8c-43eb-a80c-65aeb42c8b47)
+![image](https://github.com/user-attachments/assets/11981974-0d1b-41af-a034-803531602095)
+![image](https://github.com/user-attachments/assets/34803706-fe8e-4984-9118-532be5581e2e)
+![image](https://github.com/user-attachments/assets/c52184d1-4906-4e6a-ab02-73191db08a91)
+![image](https://github.com/user-attachments/assets/7296fbe7-37ec-412c-a386-7f9a69323ca1)
+![image](https://github.com/user-attachments/assets/bc4a952c-f6de-4f6f-8994-367aa84a4812)
+![image](https://github.com/user-attachments/assets/cbf82d61-5932-42c8-a8b9-07a51949fbe8)
+![image](https://github.com/user-attachments/assets/36a5040c-76d1-48ef-99a9-601c6ad5270b)
+![image](https://github.com/user-attachments/assets/3601ebc9-ffd8-4939-8704-614bd7fb1dec)
+![image](https://github.com/user-attachments/assets/b485dac0-9a9f-4c17-9e3d-48603a592e68)
+![image](https://github.com/user-attachments/assets/17350160-68db-49f4-a17d-3d933171fab1)
+![image](https://github.com/user-attachments/assets/3fb51c8e-608b-47a2-8d65-e802eef02e0d)
+
+
+
+
