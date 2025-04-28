@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tech Bucket List - Add a Goal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1>Tech Bucket List</h1>
+  <p class="quote">small steps build legendary careers</p>
+
+  <!-- Category Filter -->
+  <select id="categoryFilter">
+    <option value="">All Categories</option>
+    <option value="certification">Certification</option>
+    <option value="project">Project</option>
+    <option value="learning">Learning</option>
+    <option value="networking">Networking</option>
+    <option value="career">Career</option>
+  </select>
+
+  <div class="card">
+    <form id="goalForm">
+      <input type="text" id="title" placeholder="Goal Title" required><br><br>
+      <input type="text" id="description" placeholder="Goal Description"><br><br>
+      <select id="category" required>
+        <option value="">Select Category</option>
+        <option value="certification">Certification</option>
+        <option value="project">Project</option>
+        <option value="learning">Learning</option>
+        <option value="networking">Networking</option>
+        <option value="career">Career</option>
+      </select><br><br>
+      <button type="submit">Add Goal</button>
+    </form>
+  </div>
+
+  <p id="message" class="hidden"></p>
+  <div id="goalsList"></div>
+
+  <script>
+    document.getElementById('goalForm').addEventListener('submit', async (e) => {
+      e.preventDefault()
+
+      const title = document.getElementById('title').value
+      const description = document.getElementById('description').value
+      const category = document.getElementById('category').value
+      const message = document.getElementById('message')
+
+      const response = await fetch('/api/goals', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, description, category, userId: '680e960fb0a9018e54a6b864' })
+      })
+
+      if (response.ok) {
+        message.innerText = 'Goal added successfully.'
+        message.className = 'success'
+        document.getElementById('goalForm').reset()
+        loadGoals()
+        setTimeout(() => {
+          message.className = 'hidden'
+          message.innerText = ''
+        }, 3000)
+      } else {
+        message.innerText = 'Error adding goal.'
+        message.className = 'error'
+      }
+    })
+
+    async function deleteGoal(id) {
+      await fetch(`/api/goals/${id}`, { method: 'DELETE' })
+      loadGoals()
+    }
+
+    async function completeGoal(id) {
+      await fetch(`/api/goals/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ completed: true })
+      })
+      loadGoals()
+    }
+
+    async function loadGoals() {
+      const response = await fetch('/api/goals')
+      let goals = await response.json()
+
+      const categoryFilter = document.getElementById('categoryFilter').value
+      if (categoryFilter) {
+        goals = goals.filter(goal => goal.category === categoryFilter)
+      }
+
+      const goalsList = document.getElementById('goalsList')
+      goalsList.innerHTML = ''
+
+      goals.forEach(goal => {
+        const goalItem = document.createElement('div')
+        goalItem.className = 'goal-item'
+        goalItem.innerHTML = `
+          <h3 ${goal.completed ? 'style="text-decoration: line-through; color: green;"' : ''}>${goal.title}</h3>
+          <p>${goal.description || 'No description provided.'}</p>
+          <p><strong>Category:</strong> ${goal.category || 'N/A'}</p>
+          <button onclick="completeGoal('${goal._id}')">Mark Complete</button>
+          <button onclick="deleteGoal('${goal._id}')">Delete</button>
+        `
+        goalsList.appendChild(goalItem)
+      })
+    }
+
+    document.getElementById('categoryFilter').addEventListener('change', loadGoals)
+
+    loadGoals()
+  </script>
+
+</body>
+</html>

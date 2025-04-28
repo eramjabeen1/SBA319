@@ -18,6 +18,9 @@ const app = express()
 // middleware this allows me to work with json data in req bodies
 app.use(express.json())
 
+// serve static files (frontend)
+app.use(express.static('public'))
+
 // defining my api routes
 app.use('/api/users', userRoutes)
 app.use('/api/goals', goalRoutes)
